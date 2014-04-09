@@ -47,8 +47,8 @@ This can be loaded in a recipe with:
 
 And to access the values:
 
-    azure['management_certificate']
-    azure['subscription_id']
+    microsoft_azure['management_certificate']
+    microsoft_azure['subscription_id']
 
 We'll look at specific usage below.
 
@@ -64,7 +64,7 @@ recipe is in the node or role `run_list` before any resources from
 this cookbook are used.
 
     "run_list": [
-      "recipe[azure]"
+      "recipe[microsoft_azure]"
     ]
 
 The `gem_package` is created as a Ruby Object and thus installed
@@ -138,17 +138,17 @@ The following examples assume that the recommended data bag item has
 been created and that the following has been included at the top of
 the recipe where they are used.
 
-    include_recipe "azure"
+    include_recipe "microsoft_azure"
     azure = data_bag_item("azure", "main")
 
-## azure_storage_accouint
+## azure_storage_account
 
 This will create an account named `new-account` in the `West US`
 location.
 
     azure_storage_account 'new-account' do
       management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+      subscription_id microsoft_azure['subscription_id']
       location 'West US'
       action :create
     end
@@ -157,8 +157,8 @@ This will create an account named `new-account` in the existing
 `my-ag` affinity group.
 
     azure_storage_account 'new-account' do
-      management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+      management_certificate microsoft_azure['management_certificate']
+      subscription_id microsoft_azure['subscription_id']
       affinity_group_name 'my-ag'
       action :create
     end
@@ -170,7 +170,7 @@ account `my-account`.
 
     azure_storage_container 'my-node' do
       storage_account 'my-account'
-      access_key azure['access_key']
+      access_key microsoft_azure['access_key']
       action :create
     end
 
@@ -180,8 +180,8 @@ This will create a db server in the location `West US` with the login
 `admin` and password `password`.
 
     azure_sql_db_server 'West US' do
-      management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+      management_certificate microsoft_azure['management_certificate']
+      subscription_id microsoft_azure['subscription_id']
       login 'admin'
       password 'password'
       action :create
