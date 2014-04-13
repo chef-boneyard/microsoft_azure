@@ -1,12 +1,15 @@
+Microsoft Azure Cookbook
+========================
+
 Description
 ===========
 
 This cookbook provides resources and providers to create an manage
-Windows Azure components. Currently supported resources are:
+Microsoft Azure components. Currently supported resources are:
 
-* Storage Accounts ('azure_storage_account')
-* Blob Storage Containers ('azure_storage_container')
-* SQL Azure Servers ('azure_sql_db_server')
+* Storage Accounts ('microsoft_azure_storage_account')
+* Blob Storage Containers ('microsoft_azure_storage_container')
+* SQL Azure Servers ('microsoft_azure_sql_db_server')
 
 **Note** This cookbook uses the `azure` RubyGem to interact with the
   Azure API. This gem requires `nokogiri` which requires compiling
@@ -20,7 +23,7 @@ support. Chef 0.8+ is recommended. While this cookbook can be used in
 `chef-solo` mode, to gain the most flexibility, we recommend using
 `chef-client` with a Chef Server.
 
-A Windows Azure account is required. The Management Certificate and
+A Microsoft Azure account is required. The Management Certificate and
 Subscriptoin ID are used to authenticate with Azure.
 
 Azure Credentials
@@ -34,7 +37,7 @@ resources are needed.
 
 DataBag recommendation:
 
-    % knife data bag show azure main
+    % knife data bag show microsoft_azure main
     {
       "id": "main",
       "management_certificate": "YOUR PEM FILE CONTENTS",
@@ -43,12 +46,12 @@ DataBag recommendation:
 
 This can be loaded in a recipe with:
 
-    azure = data_bag_item("azure", "main")
+    microsoft_azure = data_bag_item("microsoft_azure", "main")
 
 And to access the values:
 
-    azure['management_certificate']
-    azure['subscription_id']
+    microsoft_azure['management_certificate']
+    microsoft_azure['subscription_id']
 
 We'll look at specific usage below.
 
@@ -59,12 +62,12 @@ default.rb
 ----------
 
 The default recipe installs the `azure` RubyGem, which this cookbook
-requires in order to work with the Azure API. Make sure that the azure
-recipe is in the node or role `run_list` before any resources from
-this cookbook are used.
+requires in order to work with the Azure API. Make sure that the
+microsoft_azure recipe is in the node or role `run_list` before any
+resources from this cookbook are used.
 
     "run_list": [
-      "recipe[azure]"
+      "recipe[microsoft_azure]"
     ]
 
 The `gem_package` is created as a Ruby Object and thus installed
@@ -138,17 +141,17 @@ The following examples assume that the recommended data bag item has
 been created and that the following has been included at the top of
 the recipe where they are used.
 
-    include_recipe "azure"
-    azure = data_bag_item("azure", "main")
+    include_recipe "microsoft_azure"
+    microsoft_azure = data_bag_item("microsoft_azure", "main")
 
-## azure_storage_accouint
+## microsoft_azure_storage_account
 
 This will create an account named `new-account` in the `West US`
 location.
 
-    azure_storage_account 'new-account' do
-      management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+    microsoft_azure_storage_account 'new-account' do
+      management_certificate microsoft_azure['management_certificate']
+      subscription_id microsoft_azure['subscription_id']
       location 'West US'
       action :create
     end
@@ -156,32 +159,32 @@ location.
 This will create an account named `new-account` in the existing
 `my-ag` affinity group.
 
-    azure_storage_account 'new-account' do
-      management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+    microsoft_azure_storage_account 'new-account' do
+      management_certificate microsoft_azure['management_certificate']
+      subscription_id microsoft_azure['subscription_id']
       affinity_group_name 'my-ag'
       action :create
     end
 
-## azure_storage_container
+## microsoft_azure_storage_container
 
 This will create a container named `my-node` within the storage
 account `my-account`.
 
-    azure_storage_container 'my-node' do
+    microsoft_azure_storage_container 'my-node' do
       storage_account 'my-account'
-      access_key azure['access_key']
+      access_key microsoft_azure['access_key']
       action :create
     end
 
-## azure_sql_db_server
+## microsoft_azure_sql_db_server
 
 This will create a db server in the location `West US` with the login
 `admin` and password `password`.
 
-    azure_sql_db_server 'West US' do
-      management_certificate azure['management_certificate']
-      subscription_id azure['subscription_id']
+    microsoft_azure_sql_db_server 'West US' do
+      management_certificate microsoft_azure['management_certificate']
+      subscription_id microsoft_azure['subscription_id']
       login 'admin'
       password 'password'
       action :create
@@ -192,7 +195,7 @@ name.
 
     file '/etc/db_server_info' do
       content lazy { 
-        db2 = resources("azure_sql_db_server[West US]")
+        db2 = resources("microsoft_azure_sql_db_server[West US]")
         "Url: https://#{db2.server_name}.database.windows.net"
       }
       mode 0600
