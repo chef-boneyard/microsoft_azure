@@ -14,4 +14,4 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 
-default['azure']['azure_gem_version'] = "0.6.1"
+default['microsoft_azure']['azure_gem_version'] = "0.6.1"
