@@ -1,5 +1,6 @@
 Microsoft Azure Cookbook
 ========================
+[![Cookbook Version](https://img.shields.io/cookbook/v/microsoft_azure.svg)](https://community.opscode.com/cookbooks/microsoft_azure)
 
 Description
 ===========
