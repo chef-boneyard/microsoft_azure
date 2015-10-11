@@ -18,9 +18,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[xml::ruby]
       - recipe[microsoft_azure::default]
-      - recipe[microsoft_azure::test]
     attributes:
-      xml:
-        compiletime: true
