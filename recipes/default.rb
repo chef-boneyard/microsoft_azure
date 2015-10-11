@@ -14,21 +14,13 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 
-# FIXME must force macaddr version to workaround systemu conflict
-chef_gem 'macaddr' do
-  action :remove
-  not_if '/opt/chef/embedded/bin/gem list macaddr | grep "(1.6.1)"'
-end
-chef_gem 'macaddr' do
-  version '1.6.1'
-  action :install
-end
- 
+# install any needed dependency for nokogiri
+include_recipe 'xml::ruby'
 
 chef_gem 'azure' do
-  version '0.6.0' #FIXME systemu gem conflict workaround
-  #version node['microsoft_azure']['azure_gem_version']
+  version node['microsoft_azure']['azure_gem_version']
   action :install
+  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
 end
 
 require 'azure'

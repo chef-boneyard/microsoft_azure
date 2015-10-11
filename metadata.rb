@@ -20,5 +20,7 @@ maintainer_email  "jemendoz@microsoft.com"
 license           "Apache 2.0"
 description       "LWRPs for managing Azure resources"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.2.0"
+version           "0.3.0"
 recipe            "microsoft_azure", "Installs the azure gem during compile time"
+
+depends           "xml", "~> 1.3.0"

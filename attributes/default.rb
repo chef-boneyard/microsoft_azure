@@ -14,4 +14,5 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 
-default['microsoft_azure']['azure_gem_version'] = "0.6.1"
+default['microsoft_azure']['azure_gem_version'] = "0.7.1"
+default['xml']['compiletime'] = true
