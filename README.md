@@ -27,6 +27,11 @@ support. Chef 0.8+ is recommended. While this cookbook can be used in
 A Microsoft Azure account is required. The Management Certificate and
 Subscriptoin ID are used to authenticate with Azure.
 
+Dependent Cookbooks
+===================
+
+* xml '~> 1.3.0'
+
 Azure Credentials
 ===============
 
@@ -79,7 +84,7 @@ Resources and Providers
 
 This cookbook provides three resources and corresponding providers.
 
-## storage_account.rb
+## microsoft_azure_storage_account
 
 
 Manage Azure Storage Accounts with this resource.
@@ -102,7 +107,7 @@ Attribute Parameters:
   location or affinity group are required.
 * `geo_replication_enabled` - True or false, defaults to true.
 
-## storage_container.rb
+## microsoft_azure_storage_container
 
 Manage Azure Blob Containers with this resource
 
@@ -116,7 +121,7 @@ Attribute Parameters:
 * `storage_account` - Account to create container in, required.
 * `access_key` - Access key for storage account, required.
 
-## sql_db_server.rb
+## microsoft_azure_sql_db_server
 
 Actions:
 
@@ -134,6 +139,44 @@ Attribute Parameters:
 * `password` - Desired admin password for db server, required.
 * `server_name` - This attribute is set by the provider, and can be
   used by consuming recipies.
+
+## microsoft_azure_protected_file
+
+This resource is a wrapper around the core remote_file resource that will generate an expiring link for you to retrieve your file from protected blob storage.
+
+Actions:
+
+* `create` - create the file
+* `create_if_missing` - create the file if it does not already exist. default
+* `delete` - delete the file
+* `touch` - touch the file
+
+Attribute Parameters:
+
+* `storage_account` - the azure storage account you are accessing
+* `access_key` - the access key to this azure storage account
+* `path` - where this file will be created on the machine. name attribute
+* `remote_path` - the url to the file you are trying to retrieve
+
+The following parameters are inherited from the [remote_file](https://docs.chef.io/resource_remote_file.html) resource.
+
+* `owner`
+* `group` 
+* `mode`
+* `checksum`
+* `backup` 
+* `inherits`
+* `rights`
+
+Example:
+
+```ruby
+microsoft_azure_protected_file '/tmp/secret_file.jpg' do
+  storage_account 'secretstorage'
+  access_key 'eW91cmtleWluYmFzZTY0.....'
+  remote_path 'https://secretstorage.blob.core.windows.net/images/secret_file.jpg'
+end
+```
 
 Usage
 =====
@@ -208,6 +251,7 @@ License and Author
 ==================
 
 * Author:: Jeff Mendoza (<jemendoz@microsoft.com>)
+* Author:: Andre Elizondo (<andre@chef.io>)
 
 Copyright (c) Microsoft Open Technologies, Inc.
 

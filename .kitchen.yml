@@ -1,0 +1,22 @@
+---
+driver:
+  name: azurerm
+
+provisioner:
+  name: chef_zero
+
+driver_config:
+  subscription_id: <%= ENV['AZURE_SUBSCRIPTION_ID'] %>
+  location: "West US"
+  machine_size: "Standard_D1"
+
+platforms:
+  - name: ubuntu-14.04
+    driver_config:
+      image_urn: Canonical:UbuntuServer:14.04.3-LTS:latest
+
+suites:
+  - name: default
+    run_list:
+      - recipe[microsoft_azure::default]
+    attributes:
