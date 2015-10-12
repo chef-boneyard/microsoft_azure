@@ -13,7 +13,7 @@ describe 'microsoft_azure::default' do
     end
 
     it 'installs the azure gem' do
-      expect(chef_run).to install_chef_gem('kubeclient')
+      expect(chef_run).to install_chef_gem('azure')
     end
   end
 end
