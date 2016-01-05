@@ -2,7 +2,7 @@ actions :create, :create_if_missing, :touch, :delete
 
 default_action :create_if_missing
 
-attribute :path, kind_if: String, name_attribute: true
+attribute :path, kind_of: String, name_attribute: true
 attribute :remote_path, kind_of: String
 attribute :storage_account, required: true
 attribute :access_key, required: true
