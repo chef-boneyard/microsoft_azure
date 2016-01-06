@@ -24,3 +24,4 @@ version           "0.3.0"
 recipe            "microsoft_azure", "Installs the azure gem during compile time"
 
 depends           "xml", "~> 1.3.0"
+depends           "compat_resource"
