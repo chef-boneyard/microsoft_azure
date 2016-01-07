@@ -3,8 +3,8 @@ module Azure
   module KeyVault
     include Azure::Cookbook
 
-    def vault_secret(vault, secret_name, spn = {})
-      request_url = vault_request_url(vault, secret_name)
+    def vault_secret(vault, secret_name, spn = {}, version = nil)
+      request_url = vault_request_url(vault, secret_name, version)
       token_provider = create_token_provider(spn)
       headers = {
         'Authorization' => token_provider.get_authentication_header
@@ -29,12 +29,12 @@ module Azure
       tenant_id = spn['tenant_id']
       client_id = spn['client_id']
       secret = spn['secret']
-      @provider ||= begin
+      @token_provider ||= begin
         MsRestAzure::ApplicationTokenProvider.new(tenant_id, client_id, secret, token_audience)
       end
     end
 
-    def vault_request_url(vault, secret_name, resource = 'secrets', version = nil, api_version = '2015-06-01')
+    def vault_request_url(vault, secret_name, version, resource = 'secrets', api_version = '2015-06-01')
       base_url = "https://#{vault}.vault.azure.net/#{resource}/#{secret_name}"
       version.nil? || base_url << "/#{version}"
       base_url << "?api-version=#{api_version}"
@@ -46,9 +46,10 @@ module Azure
       spn['tenant_id'] ||= ENV['AZURE_TENANT_ID']
       spn['client_id'] ||= ENV['AZURE_CLIENT_ID']
       spn['secret'] ||= ENV['AZURE_CLIENT_SECRET']
-      fail ArugmentError 'Invalid SPN info provided' unless spn['tenant_id'] && spn['client_id'] && spn['secret']
+      fail 'Invalid SPN info provided' unless spn['tenant_id'] && spn['client_id'] && spn['secret']
     end
   end
 end
 
 Chef::Recipe.send(:include, Azure::KeyVault)
+Chef::Resource.send(:include, Azure::KeyVault)
