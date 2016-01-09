@@ -25,7 +25,7 @@ module Azure
     end
 
     def create_token_provider(spn)
-      validate_service_principle(spn)
+      validate_service_principal!(spn)
       tenant_id = spn['tenant_id']
       client_id = spn['client_id']
       secret = spn['secret']
@@ -36,13 +36,13 @@ module Azure
 
     def vault_request_url(vault, secret_name, version, resource = 'secrets', api_version = '2015-06-01')
       base_url = "https://#{vault}.vault.azure.net/#{resource}/#{secret_name}"
-      version.nil? || base_url << "/#{version}"
+      base_url << "/#{version}" unless version.nil?
       base_url << "?api-version=#{api_version}"
-      Chef::Log.info(base_url)
+      Chef::Log.debug("Generated vault url: #{base_url}")
       base_url
     end
 
-    def validate_service_principle(spn)
+    def validate_service_principal!(spn)
       spn['tenant_id'] ||= ENV['AZURE_TENANT_ID']
       spn['client_id'] ||= ENV['AZURE_CLIENT_ID']
       spn['secret'] ||= ENV['AZURE_CLIENT_SECRET']
