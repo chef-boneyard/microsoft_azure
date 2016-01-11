@@ -246,6 +246,26 @@ name.
       action :create
     end
 
+Helpers
+=======
+
+# vault_secret
+
+This helper will allow you to retrieve a secret from an azure keyvault.
+
+```ruby
+spn = {
+  'tenant_id' => '11e34-your-tenant-id-1232',
+  'client_id' => '11e34-your-client-id-1232',
+  'secret' => 'your-client-secret'
+}
+
+super_secret = vault_secret(<vault_name>, <secret_name>, spn)
+
+file '/etc/config_file' do
+  content "password = #{super_secret}"
+end
+```
 
 License and Author
 ==================

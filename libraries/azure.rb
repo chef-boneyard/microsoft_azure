@@ -46,6 +46,14 @@ module Azure
         config.storage_access_key   = new_resource.access_key
       end
     end
-    
+
+    def setup_arm_compute
+      begin
+        require 'azure_mgmt_compute'
+      rescue LoadError
+        Chef::Log.error("mising gem 'azure_mgmt_compute', please ensure this gem is installed on the system.")
+      end
+    end
+
   end
 end
