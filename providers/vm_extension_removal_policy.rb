@@ -1,4 +1,4 @@
-include Azure::Cookbook
+
 require 'json'
 
 action :set do
@@ -17,7 +17,7 @@ action :set do
     deserialized_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["deleteChefConfig"] = new_resource.delete_chef_config
     deserialized_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["uninstallChefClient"] = new_resource.uninstall_chef_client
 
-    File.write(config_path, deserialized_json.json)
+    ::File.write(config_path, deserialized_json.to_json)
   rescue => error
     Chef::Log.error("#{error.message}")
   end
@@ -25,7 +25,7 @@ end
 
 def deserialize_json(file)
   # User may give file path or file content as input.
-  normalized_content = File.read(file) if File.exists?(file)
+  normalized_content = ::File.read(file) if ::File.exists?(file)
 
   begin
     JSON.parse(normalized_content)
