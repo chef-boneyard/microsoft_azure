@@ -6,9 +6,10 @@ action :set do
     if ENV["extension_path"]
       # get the path of extension config file using HandlerEnvironment.json
       extension_path = ENV["extension_path"]
-      handler_environment = deserialize_json(extension_path + "/HandlerEnvironment.json")
+      handler_environment = deserialize_json(::File.join(extension_path, "HandlerEnvironment.json"))
       config_folder = handler_environment[0]["handlerEnvironment"]["configFolder"]
-      config_path = Dir[config_folder+"/*.settings"].last
+      config_folder = config_folder.gsub('\\','/')
+      config_path = Dir[::File.join(config_folder,"*.settings")].last
 
       # config file is in json format. So deserialize it
       config_json = deserialize_json(config_path)
