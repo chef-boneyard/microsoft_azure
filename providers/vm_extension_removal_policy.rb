@@ -3,21 +3,22 @@ require 'json'
 
 action :set do
   begin
-    # get the path of extension config file
-    if node['platform_family'] == 'windows'
-      extension_path = Dir["C:/Packages/Plugins/Chef.Bootstrap.WindowsAzure.ChefClient/*"].last
-      config_path = Dir[extension_path+"/RuntimeSettings/*.settings"].last
+    if ENV["extension_path"]
+      # get the path of extension config file using HandlerEnvironment.json
+      extension_path = ENV["extension_path"]
+      handler_environment = deserialize_json(extension_path + "/HandlerEnvironment.json")
+      config_folder = handler_environment[0]["handlerEnvironment"]["configFolder"]
+      config_path = Dir[config_folder+"/*.settings"].last
+
+      # config file is in json format. So deserialize it
+      config_json = deserialize_json(config_path)
+      config_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["deleteChefConfig"] = new_resource.delete_chef_config
+      config_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["uninstallChefClient"] = new_resource.uninstall_chef_client
+
+      ::File.write(config_path, config_json.to_json)
     else
-      extension_path = Dir["/var/lib/waagent/Chef.Bootstrap.WindowsAzure.LinuxChefClient-*"].last
-      config_path = Dir[extension_path+"/config/*.settings"].last
+      Chef::Log.error("Please specify the 'extension_path' variable in the Environment variables.")
     end
-
-    # config file is in json format. So deserialize it
-    deserialized_json = deserialize_json(config_path)
-    deserialized_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["deleteChefConfig"] = new_resource.delete_chef_config
-    deserialized_json["runtimeSettings"][0]["handlerSettings"]["publicSettings"]["uninstallChefClient"] = new_resource.uninstall_chef_client
-
-    ::File.write(config_path, deserialized_json.to_json)
   rescue => error
     Chef::Log.error("#{error.message}")
   end
