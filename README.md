@@ -161,10 +161,10 @@ Attribute Parameters:
 The following parameters are inherited from the [remote_file](https://docs.chef.io/resource_remote_file.html) resource.
 
 * `owner`
-* `group` 
+* `group`
 * `mode`
 * `checksum`
-* `backup` 
+* `backup`
 * `inherits`
 * `rights`
 
@@ -238,13 +238,38 @@ Here is an example of how you might retrieve the generated server
 name.
 
     file '/etc/db_server_info' do
-      content lazy { 
+      content lazy {
         db2 = resources("microsoft_azure_sql_db_server[West US]")
         "Url: https://#{db2.server_name}.database.windows.net"
       }
       mode 0600
       action :create
     end
+
+## vm_extension_removal_policy
+This resource can be used to configure the behavior of `chef-extension` on removal. This resource should be run as the root user since it modifies the extension config file.
+
+User needs to set environment variable `EXTENSION_PATH` pointing to the extension root path e.g. `C:/Packages/Plugins/Chef.Bootstrap.WindowsAzure.ChefClient/<extension_version>` for windows or `/var/lib/waagent/Chef.Bootstrap.WindowsAzure.LinuxChefClient-<extension_version>` for linux.
+
+NOTE: `EXTENSION_PATH` may vary from the examples mentioned above.
+
+Actions:
+
+* `set` - sets the configuration in the extension config file.
+
+Attribute Parameters:
+
+* `uninstall_chef_client` - true/false (decides whether chef-client should be uninstalled on extension uninstall). Default value is false
+* `delete_chef_config` - true/false (decides whether to delete chef extension configuration file on extension uninstall). Default value is false
+
+Example:
+
+```ruby
+azure_cookbook_vm_extension_removal_policy "set policy" do
+  uninstall_chef_client false
+  delete_chef_config true
+end
+```
 
 Helpers
 =======

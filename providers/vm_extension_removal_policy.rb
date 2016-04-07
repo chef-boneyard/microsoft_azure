@@ -3,9 +3,9 @@ require 'json'
 
 action :set do
   begin
-    if ENV["extension_path"]
+    if ENV["EXTENSION_PATH"]
       # get the path of extension config file using HandlerEnvironment.json
-      extension_path = ENV["extension_path"]
+      extension_path = ENV["EXTENSION_PATH"]
       handler_environment = deserialize_json(::File.join(extension_path, "HandlerEnvironment.json"))
       config_folder = handler_environment[0]["handlerEnvironment"]["configFolder"]
       config_folder = config_folder.gsub('\\','/')
@@ -18,7 +18,7 @@ action :set do
 
       ::File.write(config_path, config_json.to_json)
     else
-      Chef::Log.error("Please specify the 'extension_path' variable in the Environment variables.")
+      Chef::Log.error("Please specify the 'EXTENSION_PATH' in the Environment variables.")
     end
   rescue => error
     Chef::Log.error("#{error.message}")
