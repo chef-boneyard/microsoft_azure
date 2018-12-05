@@ -285,7 +285,14 @@ spn = {
   'secret' => 'your-client-secret'
 }
 
-super_secret = vault_secret(<vault_name>, <secret_name>, spn)
+key_vault_client = KeyVaultClient.new(
+  <vault_endpoint = 'vault.azure.net'>, 
+  <authentication_endpoint = 'https://login.windows.net/'>, 
+  <token_audience = "https://vault.azure.net">, 
+  <api_version = '2016-10-01'>
+)
+
+super_secret = key_vault_client.get_secret(<vault_name>, <secret_name>, spn, <version = nil>)
 
 file '/etc/config_file' do
   content "password = #{super_secret}"
