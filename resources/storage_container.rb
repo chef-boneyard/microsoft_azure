@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
 
 actions :create, :delete
 
-attribute :storage_account, :kind_of => String, :required => true
-attribute :access_key, :kind_of => String, :required => true
+attribute :storage_account, kind_of: String, required: true
+attribute :access_key, kind_of: String, required: true
 
-def initialize(*args)
-  super
-  @action = :create
-end
+default_action :create

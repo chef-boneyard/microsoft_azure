@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,19 +20,19 @@ action :create do
   mc = setup_management_service
 
   sms = Azure::StorageManagementService.new
-  
+
   if sms.get_storage_account(new_resource.name)
     Chef::Log.debug("Storage account #{new_resource.name} already exists.")
   else
-    
+
     if new_resource.location.nil? && new_resource.affinity_group_name.nil?
-      raise "Must provide either location or affinity group."
+      raise 'Must provide either location or affinity group.'
     end
 
-    #otherwise create
-    sa_opts = { :location => new_resource.location,
-      :affinity_group_name => new_resource.affinity_group_name,
-      :geo_replication_enabled => new_resource.geo_replication_enabled, };
+    # otherwise create
+    sa_opts = { location: new_resource.location,
+      affinity_group_name: new_resource.affinity_group_name,
+      geo_replication_enabled: new_resource.geo_replication_enabled }
     Chef::Log.debug("Creating storage account #{new_resource.name}.")
     sms.create_storage_account(new_resource.name, sa_opts)
   end
@@ -44,13 +44,13 @@ action :delete do
 
   sms = Azure::StorageManagementService.new
 
-  unless sms.get_storage_account(new_resource.name)
-    Chef::Log.debug("Storage account #{new_resource.name} already deleted.")
-  else
+  if sms.get_storage_account(new_resource.name)
 
-    #otherwise delete
+    # otherwise delete
     Chef::Log.debug("Deleting storage account #{new_resource.name}.")
     sms.delete_storage_account(new_resource.name)
+  else
+    Chef::Log.debug("Storage account #{new_resource.name} already deleted.")
   end
   mc.unlink
 end

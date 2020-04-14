@@ -7,7 +7,7 @@ module Azure
       request_url = vault_request_url(vault, secret_name, version)
       token_provider = create_token_provider(spn)
       headers = {
-        'Authorization' => token_provider.get_authentication_header
+        'Authorization' => token_provider.get_authentication_header,
       }
       http_client = Chef::HTTP.new(request_url, headers)
       response = http_client.get(http_client.url, headers)
@@ -46,10 +46,10 @@ module Azure
       spn['tenant_id'] ||= ENV['AZURE_TENANT_ID']
       spn['client_id'] ||= ENV['AZURE_CLIENT_ID']
       spn['secret'] ||= ENV['AZURE_CLIENT_SECRET']
-      fail 'Invalid SPN info provided' unless spn['tenant_id'] && spn['client_id'] && spn['secret']
+      raise 'Invalid SPN info provided' unless spn['tenant_id'] && spn['client_id'] && spn['secret']
     end
   end
 end
 
-Chef::Recipe.send(:include, Azure::KeyVault)
-Chef::Resource.send(:include, Azure::KeyVault)
+Chef::Recipe.include Azure::KeyVault
+Chef::Resource.include Azure::KeyVault

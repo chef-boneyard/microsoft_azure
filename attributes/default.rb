@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,6 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 
-default['microsoft_azure']['azure_gem_version'] = "0.7.1"
-default['microsoft_azure']['arm_compute_gem_version'] = "0.1.1"
+default['microsoft_azure']['azure_gem_version'] = '0.7.1'
+default['microsoft_azure']['arm_compute_gem_version'] = '0.1.1'
 default['xml']['compiletime'] = true

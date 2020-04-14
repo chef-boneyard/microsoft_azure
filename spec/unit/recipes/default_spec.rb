@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: azure-cookbook
+# Cookbook:: azure-cookbook
 # Spec:: default
 #
-# Copyright (c) 2015 The Authors, All Rights Reserved.
+# Copyright:: (c) 2015 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 

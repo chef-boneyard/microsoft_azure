@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 module Azure
   module Cookbook
-
     def setup_management_service
       begin
         require 'azure'
@@ -48,12 +47,9 @@ module Azure
     end
 
     def setup_arm_compute
-      begin
-        require 'azure_mgmt_compute'
-      rescue LoadError
-        Chef::Log.error("mising gem 'azure_mgmt_compute', please ensure this gem is installed on the system.")
-      end
+      require 'azure_mgmt_compute'
+    rescue LoadError
+      Chef::Log.error("mising gem 'azure_mgmt_compute', please ensure this gem is installed on the system.")
     end
-
   end
 end

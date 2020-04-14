@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ action :delete do
   bms.list_containers.each do |cont|
     cont_names.push(cont.name)
   end
-  
+
   if cont_names.include?(new_resource.name)
     Chef::Log.debug("Deleting blob container #{new_resource.name}.")
     bms.delete_container(new_resource.name)

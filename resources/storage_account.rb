@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +16,11 @@
 
 actions :create, :delete
 
-attribute :management_certificate, :kind_of => String, :required => true
-attribute :subscription_id, :kind_of => String, :required => true
-attribute :management_endpoint, :kind_of => String, :default => 'management.core.windows.net'
-attribute :location, :kind_of => String
-attribute :affinity_group_name, :kind_of => String
-attribute :geo_replication_enabled, :kind_of => [TrueClass, FalseClass], :default => true
+attribute :management_certificate, kind_of: String, required: true
+attribute :subscription_id, kind_of: String, required: true
+attribute :management_endpoint, kind_of: String, default: 'management.core.windows.net'
+attribute :location, kind_of: String
+attribute :affinity_group_name, kind_of: String
+attribute :geo_replication_enabled, kind_of: [TrueClass, FalseClass], default: true
 
-def initialize(*args)
-  super
-  @action = :create
-end
+default_action :create
