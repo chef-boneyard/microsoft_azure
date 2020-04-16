@@ -19,13 +19,13 @@
 chef_gem 'azure' do
   version node['microsoft_azure']['azure_gem_version']
   action :install
-  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
+  compile_time true
 end
 
 chef_gem 'azure_mgmt_compute' do
   version node['microsoft_azure']['arm_compute_gem_version']
   action :install
-  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
+  compile_time true
 end
 
 require 'azure'
