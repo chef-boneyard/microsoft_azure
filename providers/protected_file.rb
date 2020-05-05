@@ -1,11 +1,5 @@
 include Azure::Cookbook
 
-use_inline_resources if defined?(use_inline_resources)
-
-def why_run_supported?
-  true
-end
-
 action :create do
   do_protected_file(:create)
 end
@@ -39,7 +33,7 @@ def do_protected_file(resource_action)
     mode new_resource.mode
     checksum new_resource.checksum
     backup new_resource.backup
-    if node['platform_family'] == 'windows'
+    if platform_family?('windows')
       inherits new_resource.inherits
       rights new_resource.rights
     end

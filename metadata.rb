@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +14,11 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 
-name              "microsoft_azure"
-maintainer        "Microsoft Open Technologies, Inc."
-maintainer_email  "jemendoz@microsoft.com"
-license           "Apache 2.0"
-description       "LWRPs for managing Azure resources"
-long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.3.0"
-recipe            "microsoft_azure", "Installs the azure gem during compile time"
+name              'microsoft_azure'
+maintainer        'Microsoft Open Technologies, Inc.'
+maintainer_email  'jemendoz@microsoft.com'
+license           'Apache-2.0'
+description       'LWRPs for managing Azure resources'
+version           '0.3.0'
 
-depends           "xml", "~> 1.3.0"
-depends           "compat_resource"
+depends           'xml', '~> 1.3.0'

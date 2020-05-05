@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ action :create do
   mc = setup_management_service
 
   sms = Azure::SqlDatabaseManagementService.new
-  
+
   locs = []
   sms.list_servers.each { |srv| locs.push(srv.location) }
-  
+
   if locs.include?(new_resource.location)
     Chef::Log.debug("DB in  #{new_resource.location} already exists.")
     sms.list_servers.each do |srv|

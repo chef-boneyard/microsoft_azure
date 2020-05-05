@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,16 +16,13 @@
 
 actions :create
 
-attribute :management_certificate, :kind_of => String, :required => true
-attribute :subscription_id, :kind_of => String, :required => true
-attribute :management_endpoint, :kind_of => String, :default => 'https://management.database.windows.net:8443/'
-attribute :location, :kind_of => String, :name_attribute => true
-attribute :login, :kind_of => String, :required => true
-attribute :password, :kind_of => String, :required => true
+attribute :management_certificate, kind_of: String, required: true
+attribute :subscription_id, kind_of: String, required: true
+attribute :management_endpoint, kind_of: String, default: 'https://management.database.windows.net:8443/'
+attribute :location, kind_of: String, name_attribute: true
+attribute :login, kind_of: String, required: true
+attribute :password, kind_of: String, required: true
 
-attribute :server_name, :kind_of => String
+attribute :server_name, kind_of: String
 
-def initialize(*args)
-  super
-  @action = :create
-end
+default_action :create

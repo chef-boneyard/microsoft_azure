@@ -1,6 +1,6 @@
-# Author Jeff Mendoza (jemendoz@microsoft.com)
+# Author:: Jeff Mendoza (jemendoz@microsoft.com)
 #-------------------------------------------------------------------------
-# Copyright (c) Microsoft Open Technologies, Inc.
+# Copyright:: (c) Microsoft Open Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +15,17 @@
 #--------------------------------------------------------------------------
 
 # install any needed dependency for nokogiri
-include_recipe 'xml::ruby'
 
 chef_gem 'azure' do
   version node['microsoft_azure']['azure_gem_version']
   action :install
-  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
+  compile_time true
 end
 
 chef_gem 'azure_mgmt_compute' do
   version node['microsoft_azure']['arm_compute_gem_version']
   action :install
-  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
+  compile_time true
 end
 
 require 'azure'
