@@ -16,4 +16,3 @@
 
 default['microsoft_azure']['azure_gem_version'] = '0.7.1'
 default['microsoft_azure']['arm_compute_gem_version'] = '0.1.1'
-default['xml']['compiletime'] = true

@@ -20,5 +20,3 @@ maintainer_email  'jemendoz@microsoft.com'
 license           'Apache-2.0'
 description       'LWRPs for managing Azure resources'
 version           '0.3.0'
-
-depends           'xml', '~> 1.3.0'

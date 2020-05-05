@@ -1,6 +1,6 @@
 Microsoft Azure Cookbook
 ========================
-[![Cookbook Version](https://img.shields.io/cookbook/v/microsoft_azure.svg)](https://community.opscode.com/cookbooks/microsoft_azure)
+[![Cookbook Version](https://img.shields.io/cookbook/v/microsoft_azure.svg)](https://supermarket.chef.io/cookbooks/microsoft_azure)
 
 Description
 ===========
@@ -25,12 +25,12 @@ support. Chef 0.8+ is recommended. While this cookbook can be used in
 `chef-client` with a Chef Server.
 
 A Microsoft Azure account is required. The Management Certificate and
-Subscriptoin ID are used to authenticate with Azure.
+Subscription ID are used to authenticate with Azure.
 
 Dependent Cookbooks
 ===================
 
-* xml '~> 1.3.0'
+* None
 
 Azure Credentials
 ===============
@@ -38,7 +38,7 @@ Azure Credentials
 In order to manage Azure components, authentication credentials need
 to be available to the node. There are a number of ways to handle
 this, such as node attributes or roles. We recommend storing these in
-a databag (Chef 0.8+), and loading them in the recipe where the
+a databag, and loading them in the recipe where the
 resources are needed.
 
 DataBag recommendation:
