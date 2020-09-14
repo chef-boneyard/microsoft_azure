@@ -51,5 +51,5 @@ module Azure
   end
 end
 
-Chef::Recipe.include Azure::KeyVault
+Chef::DSL::Recipe.include Azure::KeyVault
 Chef::Resource.include Azure::KeyVault
